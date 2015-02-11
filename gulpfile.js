@@ -3,18 +3,23 @@ var browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
     uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    watchify = require('watchify');
 
-gulp.task('browserify', function() {
-	return browserify({
+var bundler = watchify(browserify({
 		entries: './js/app.js',
 		debug: true
-	})
-	.bundle()
+	}));
+
+gulp.task('browserify', bundle);
+bundler.on('update', bundle);
+
+function bundle() {
+	return bundler.bundle()
 	.pipe(source('bundle.js'))
-	.pipe(buffer())
-	.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(buffer())
+		.pipe(sourcemaps.init({loadMaps: true}))
 	.pipe(uglify())
 	.pipe(sourcemaps.write('./'))
-	.pipe(gulp.dest('./build/'));
-});
+	.pipe(gulp.dest('./build/'));	
+}
