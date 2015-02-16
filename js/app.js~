@@ -1,3 +1,0 @@
-var notifier = require('./notifier');
-window.x_notifier = notifier;
-notifier();
