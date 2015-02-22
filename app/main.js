@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactRouter = require('react-router');
 
 // We create a function that will lazy load modules based on the current hash
 var resolveRoute = function () {
