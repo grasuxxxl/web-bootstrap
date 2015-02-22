@@ -1,0 +1,15 @@
+{
+  "main": "./app/js",
+  "scripts": {
+    "dev": "webpack-dev-server --port 9595 --devtool eval --progress --colors --content-base build",
+    "deploy": "SET NODE_ENV=production webpack -p"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.12.2",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "dependencies": {
+    "react": "^0.12.2"
+  }
+}
