@@ -5,6 +5,8 @@
     "deploy": "SET NODE_ENV=production webpack -p"
   },
   "devDependencies": {
+    "babel-core": "^5.2.17",
+    "babel-loader": "^5.0.0",
     "jsx-loader": "^0.12.2",
     "webpack": "^1.5.3",
     "webpack-dev-server": "^1.7.0"
