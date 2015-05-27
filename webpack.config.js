@@ -22,6 +22,7 @@ var config = {
     module: {
         noParse: [],
         loaders: [
+            { test: /\.css$/, loader: 'style-loader!css-loader?module' },
             { test: /\.js$/, loader: 'babel-loader' }
         ]
     }
