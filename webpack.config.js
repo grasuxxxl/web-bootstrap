@@ -10,7 +10,7 @@ var config = {
         this.module.noParse.push(new RegExp(path));
     },
 	context: __dirname,
-	entry: ['./app/main.js'],
+	entry: ['./app/boot.js'],
     resolve: { alias: {} },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),

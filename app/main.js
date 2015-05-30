@@ -1,5 +1,12 @@
-import MyComponent from './my-component.js';
-import React from 'react';
+import React, { Component } from 'react';
+import { RouteHandler } from 'react-router';
 
-
-React.render(<MyComponent />, document.getElementById('app'));
+export default class Main extends Component {
+    render () {
+        return (
+            <div>
+                <RouteHandler />
+            </div>
+        );
+    }
+}
