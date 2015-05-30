@@ -1,1 +1,0 @@
-webpackJsonp([2],{80:function(e,t,n){var o=n(51);e.exports=o.createClass({displayName:"exports",render:function(){return o.createElement("h1",null,"Hello ADMIN!")}})}});
