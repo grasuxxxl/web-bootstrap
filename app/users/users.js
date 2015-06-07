@@ -17,7 +17,6 @@ export default class Users extends Component {
     }
 
     render () {
-        debugger;
         return (
             <div>
                 <UsersTable users={this.state.users} />
