@@ -14,14 +14,14 @@ export default class UsersTable extends Component {
 
         return (
             <Table
-                width={200}
+                width={600}
                 height={600}
                 rowsCount={this.props.users.length}
                 rowHeight={50}
                 rowGetter={this._rowGetter.bind(this)}
                 headerHeight={50}>
                 <Column label="FirstName" width={100} dataKey={'firstName'} />
-                <Column label="LastName" width={100} dataKey={'lastName'}/>
+                <Column label="LastName" width={100} dataKey={'lastName'} flexGrow={1} />
             </Table>
         );
     }
