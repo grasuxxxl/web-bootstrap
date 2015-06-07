@@ -3,18 +3,25 @@
  */
 import React, { Component } from 'react';
 import UsersTable from './users-table.js'
+import Fluxxor from 'fluxxor';
 
-export default class Users extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            users: [
-                { firstName: 'Ion', lastName: 'Gheo' },
-                { firstName: 'Vasile', lastName: 'Gheorghe' },
-                { firstName: 'Daniela', lastName: 'Costin' }
-            ]
+
+var FluxMixin = Fluxxor.FluxMixin(React),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+
+export default React.createClass({
+    mixins: [FluxMixin, StoreWatchMixin('UsersStore')],
+
+    getInitialState () {
+        return {
+            // users: []
         };
-    }
+    },
+
+    getStateFromFlux () {
+        var flux = this.getFlux();
+        return flux.store('UsersStore').getState();
+    },
 
     render () {
         return (
@@ -23,4 +30,4 @@ export default class Users extends Component {
             </div>
         );
     }
-}
+})

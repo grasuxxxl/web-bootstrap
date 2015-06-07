@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
+import Fluxxor from 'fluxxor';
 
-export default class Main extends Component {
+var FluxMixin = Fluxxor.FluxMixin(React);
+
+export default React.createClass({
+    mixins: [FluxMixin],
+
     render () {
         return (
             <div>
@@ -9,4 +14,4 @@ export default class Main extends Component {
             </div>
         );
     }
-}
+})
