@@ -12,10 +12,7 @@ export default class UsersTable extends Component {
         if (result) return result;
 
         console.log('Failed at index ', index);
-        this.refetchData({
-            start: index,
-            length: 30
-        });
+        this.noDataAtIndex(index);
 
         return {
             firstName: 'Loading...',
@@ -40,9 +37,8 @@ export default class UsersTable extends Component {
         );
     }
 
-    refetchData (options) {
-        this.props.refetchData(options);
-        console.log('refetch data');
+    noDataAtIndex (index) {
+        this.props.noDataAtIndex(index);
     }
 }
 

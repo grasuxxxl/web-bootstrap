@@ -30,8 +30,8 @@ export default React.createClass({
                 <UsersTable
                     users={this.state.data}
                     totalDisplayData={this.state.totalDisplayData}
-                    refetchData={function (options) {
-                        this._fireReloadUsers(options)
+                    noDataAtIndex={function (index) {
+                        this._fireReloadUsers({ start: index })
                     }.bind(this)} />
             </div>
         );

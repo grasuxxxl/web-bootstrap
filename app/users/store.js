@@ -14,7 +14,7 @@ var _usersResult = {
 export default Fluxxor.createStore({
     initialize () {
         this._loadUsers({
-            length: 30
+            length: 100
         });
 
         this.bindActions(
