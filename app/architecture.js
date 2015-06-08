@@ -3,6 +3,7 @@
  */
 import Fluxxor from 'fluxxor';
 import UsersStore from './users/store.js';
+import UserActions from './users/actions.js';
 
 export default {
     init: function () {
@@ -10,7 +11,7 @@ export default {
             UsersStore: new UsersStore()
         };
 
-        var flux = new Fluxxor.Flux(stores, {});
+        var flux = new Fluxxor.Flux(stores, UserActions);
 
         flux.on('dispatch', function (type, payload) {
             console.log("[Dispatch]", type, payload);

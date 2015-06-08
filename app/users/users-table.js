@@ -16,7 +16,7 @@ export default class UsersTable extends Component {
             <Table
                 width={600}
                 height={600}
-                rowsCount={this.props.users.length}
+                rowsCount={this.props.totalDisplayData}
                 rowHeight={50}
                 rowGetter={this._rowGetter.bind(this)}
                 headerHeight={50}>
@@ -27,4 +27,12 @@ export default class UsersTable extends Component {
     }
 }
 
-UsersTable.propTypes = { users: PropTypes.array };
+UsersTable.propTypes = {
+    users: PropTypes.array,
+    totalData: PropTypes.number,
+    totalDisplayData: PropTypes.number
+};
+
+UsersTable.defaultProps = {
+    totalDisplayData: 0
+};

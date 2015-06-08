@@ -26,8 +26,17 @@ export default React.createClass({
     render () {
         return (
             <div>
-                <UsersTable users={this.state.users} />
+                <button onClick={this.onReloadClick}>Reload</button>
+                <UsersTable users={this.state.data} totalDisplayData={this.state.totalDisplayData} />
             </div>
         );
+    },
+
+    onReloadClick () {
+        this._fireReloadUsers();
+    },
+
+    _fireReloadUsers () {
+        this.getFlux().actions.loadUsers();
     }
 })
