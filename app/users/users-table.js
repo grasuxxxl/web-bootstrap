@@ -3,11 +3,24 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { Table, Column } from 'fixed-data-table';
+import R from 'ramda';
+
 
 export default class UsersTable extends Component {
-
     _rowGetter (index) {
-        return this.props.users[index];
+        var result = this.props.users[index];
+        if (result) return result;
+
+        console.log('Failed at index ', index);
+        this.refetchData({
+            start: index,
+            length: 30
+        });
+
+        return {
+            firstName: 'Loading...',
+            lastName: 'Loading...'
+        }
     }
 
     render () {
@@ -20,10 +33,16 @@ export default class UsersTable extends Component {
                 rowHeight={50}
                 rowGetter={this._rowGetter.bind(this)}
                 headerHeight={50}>
+                <Column label="Id" width={50} dataKey={'id'} />
                 <Column label="FirstName" width={100} dataKey={'firstName'} />
                 <Column label="LastName" width={100} dataKey={'lastName'} flexGrow={1} />
             </Table>
         );
+    }
+
+    refetchData (options) {
+        this.props.refetchData(options);
+        console.log('refetch data');
     }
 }
 

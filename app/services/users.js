@@ -2,20 +2,440 @@
  * Created by maximilian on 08.06.2015.
  */
 import Promise from 'bluebird';
+import R from 'ramda';
+
+var users = [
+{
+    "id": 1,
+    "firstName": "Jonathan",
+    "lastName": "Walker"
+}, {
+    "id": 2,
+    "firstName": "Beverly",
+    "lastName": "Carr"
+}, {
+    "id": 3,
+    "firstName": "Joe",
+    "lastName": "Nichols"
+}, {
+    "id": 4,
+    "firstName": "Jeffrey",
+    "lastName": "Perkins"
+}, {
+    "id": 5,
+    "firstName": "Frances",
+    "lastName": "Carpenter"
+}, {
+    "id": 6,
+    "firstName": "Martin",
+    "lastName": "Greene"
+}, {
+    "id": 7,
+    "firstName": "Louise",
+    "lastName": "Chavez"
+}, {
+    "id": 8,
+    "firstName": "Bobby",
+    "lastName": "Stewart"
+}, {
+    "id": 9,
+    "firstName": "Larry",
+    "lastName": "Mason"
+}, {
+    "id": 10,
+    "firstName": "Steve",
+    "lastName": "Sims"
+}, {
+    "id": 11,
+    "firstName": "Dennis",
+    "lastName": "Wallace"
+}, {
+    "id": 12,
+    "firstName": "Carolyn",
+    "lastName": "Elliott"
+}, {
+    "id": 13,
+    "firstName": "Edward",
+    "lastName": "Hernandez"
+}, {
+    "id": 14,
+    "firstName": "Ernest",
+    "lastName": "Gordon"
+}, {
+    "id": 15,
+    "firstName": "Norma",
+    "lastName": "Olson"
+}, {
+    "id": 16,
+    "firstName": "William",
+    "lastName": "Garrett"
+}, {
+    "id": 17,
+    "firstName": "Joseph",
+    "lastName": "Torres"
+}, {
+    "id": 18,
+    "firstName": "Willie",
+    "lastName": "Wood"
+}, {
+    "id": 19,
+    "firstName": "Kelly",
+    "lastName": "Howell"
+}, {
+    "id": 20,
+    "firstName": "Harry",
+    "lastName": "Montgomery"
+}, {
+    "id": 21,
+    "firstName": "Roger",
+    "lastName": "Diaz"
+}, {
+    "id": 22,
+    "firstName": "Cheryl",
+    "lastName": "Gibson"
+}, {
+    "id": 23,
+    "firstName": "Joshua",
+    "lastName": "Franklin"
+}, {
+    "id": 24,
+    "firstName": "Lisa",
+    "lastName": "Reid"
+}, {
+    "id": 25,
+    "firstName": "Martha",
+    "lastName": "Wilson"
+}, {
+    "id": 26,
+    "firstName": "Anne",
+    "lastName": "King"
+}, {
+    "id": 27,
+    "firstName": "Marilyn",
+    "lastName": "Riley"
+}, {
+    "id": 28,
+    "firstName": "Nicholas",
+    "lastName": "Graham"
+}, {
+    "id": 29,
+    "firstName": "Diane",
+    "lastName": "Lane"
+}, {
+    "id": 30,
+    "firstName": "Wanda",
+    "lastName": "Flores"
+}, {
+    "id": 31,
+    "firstName": "Debra",
+    "lastName": "Peterson"
+}, {
+    "id": 32,
+    "firstName": "Catherine",
+    "lastName": "Lane"
+}, {
+    "id": 33,
+    "firstName": "James",
+    "lastName": "Dixon"
+}, {
+    "id": 34,
+    "firstName": "Debra",
+    "lastName": "Gilbert"
+}, {
+    "id": 35,
+    "firstName": "Lori",
+    "lastName": "Kelly"
+}, {
+    "id": 36,
+    "firstName": "Sandra",
+    "lastName": "Fowler"
+}, {
+    "id": 37,
+    "firstName": "Kimberly",
+    "lastName": "Nguyen"
+}, {
+    "id": 38,
+    "firstName": "Lois",
+    "lastName": "Burke"
+}, {
+    "id": 39,
+    "firstName": "Debra",
+    "lastName": "Miller"
+}, {
+    "id": 40,
+    "firstName": "Rose",
+    "lastName": "Watson"
+}, {
+    "id": 41,
+    "firstName": "Terry",
+    "lastName": "Reid"
+}, {
+    "id": 42,
+    "firstName": "Eugene",
+    "lastName": "Webb"
+}, {
+    "id": 43,
+    "firstName": "Beverly",
+    "lastName": "Ward"
+}, {
+    "id": 44,
+    "firstName": "Chris",
+    "lastName": "Dixon"
+}, {
+    "id": 45,
+    "firstName": "Joe",
+    "lastName": "Spencer"
+}, {
+    "id": 46,
+    "firstName": "Wanda",
+    "lastName": "Murphy"
+}, {
+    "id": 47,
+    "firstName": "Juan",
+    "lastName": "Franklin"
+}, {
+    "id": 48,
+    "firstName": "Craig",
+    "lastName": "Graham"
+}, {
+    "id": 49,
+    "firstName": "Robin",
+    "lastName": "Burns"
+}, {
+    "id": 50,
+    "firstName": "Peter",
+    "lastName": "Gomez"
+}, {
+    "id": 51,
+    "firstName": "Bruce",
+    "lastName": "Kelley"
+}, {
+    "id": 52,
+    "firstName": "Lisa",
+    "lastName": "Graham"
+}, {
+    "id": 53,
+    "firstName": "Walter",
+    "lastName": "Fuller"
+}, {
+    "id": 54,
+    "firstName": "Jacqueline",
+    "lastName": "Wells"
+}, {
+    "id": 55,
+    "firstName": "Laura",
+    "lastName": "Russell"
+}, {
+    "id": 56,
+    "firstName": "Dorothy",
+    "lastName": "Richardson"
+}, {
+    "id": 57,
+    "firstName": "Judith",
+    "lastName": "Lawson"
+}, {
+    "id": 58,
+    "firstName": "Keith",
+    "lastName": "Bishop"
+}, {
+    "id": 59,
+    "firstName": "Amy",
+    "lastName": "Richards"
+}, {
+    "id": 60,
+    "firstName": "Robin",
+    "lastName": "Foster"
+}, {
+    "id": 61,
+    "firstName": "Gregory",
+    "lastName": "Alvarez"
+}, {
+    "id": 62,
+    "firstName": "Helen",
+    "lastName": "Hawkins"
+}, {
+    "id": 63,
+    "firstName": "Dennis",
+    "lastName": "Green"
+}, {
+    "id": 64,
+    "firstName": "Julie",
+    "lastName": "Mitchell"
+}, {
+    "id": 65,
+    "firstName": "Craig",
+    "lastName": "Cunningham"
+}, {
+    "id": 66,
+    "firstName": "Doris",
+    "lastName": "Ward"
+}, {
+    "id": 67,
+    "firstName": "Laura",
+    "lastName": "Owens"
+}, {
+    "id": 68,
+    "firstName": "Larry",
+    "lastName": "Mendoza"
+}, {
+    "id": 69,
+    "firstName": "Matthew",
+    "lastName": "Brown"
+}, {
+    "id": 70,
+    "firstName": "Jimmy",
+    "lastName": "Jackson"
+}, {
+    "id": 71,
+    "firstName": "Jack",
+    "lastName": "Brown"
+}, {
+    "id": 72,
+    "firstName": "Nicholas",
+    "lastName": "Daniels"
+}, {
+    "id": 73,
+    "firstName": "Jane",
+    "lastName": "Coleman"
+}, {
+    "id": 74,
+    "firstName": "Robert",
+    "lastName": "Banks"
+}, {
+    "id": 75,
+    "firstName": "Diana",
+    "lastName": "Long"
+}, {
+    "id": 76,
+    "firstName": "Joan",
+    "lastName": "Weaver"
+}, {
+    "id": 77,
+    "firstName": "Jeffrey",
+    "lastName": "Reed"
+}, {
+    "id": 78,
+    "firstName": "Mark",
+    "lastName": "Campbell"
+}, {
+    "id": 79,
+    "firstName": "Patrick",
+    "lastName": "Fox"
+}, {
+    "id": 80,
+    "firstName": "Shawn",
+    "lastName": "Simmons"
+}, {
+    "id": 81,
+    "firstName": "Brandon",
+    "lastName": "Stephens"
+}, {
+    "id": 82,
+    "firstName": "Elizabeth",
+    "lastName": "Fisher"
+}, {
+    "id": 83,
+    "firstName": "Ryan",
+    "lastName": "Kennedy"
+}, {
+    "id": 84,
+    "firstName": "Helen",
+    "lastName": "Knight"
+}, {
+    "id": 85,
+    "firstName": "Earl",
+    "lastName": "Burns"
+}, {
+    "id": 86,
+    "firstName": "Donald",
+    "lastName": "Freeman"
+}, {
+    "id": 87,
+    "firstName": "Sarah",
+    "lastName": "Kelley"
+}, {
+    "id": 88,
+    "firstName": "Nancy",
+    "lastName": "White"
+}, {
+    "id": 89,
+    "firstName": "Thomas",
+    "lastName": "King"
+}, {
+    "id": 90,
+    "firstName": "Richard",
+    "lastName": "Perkins"
+}, {
+    "id": 91,
+    "firstName": "Brandon",
+    "lastName": "Fowler"
+}, {
+    "id": 92,
+    "firstName": "Brenda",
+    "lastName": "Graham"
+}, {
+    "id": 93,
+    "firstName": "Annie",
+    "lastName": "Adams"
+}, {
+    "id": 94,
+    "firstName": "Russell",
+    "lastName": "Jacobs"
+}, {
+    "id": 95,
+    "firstName": "James",
+    "lastName": "Garrett"
+}, {
+    "id": 96,
+    "firstName": "Sara",
+    "lastName": "Griffin"
+}, {
+    "id": 97,
+    "firstName": "Lori",
+    "lastName": "Ross"
+}, {
+    "id": 98,
+    "firstName": "Walter",
+    "lastName": "Reed"
+}, {
+    "id": 99,
+    "firstName": "Alice",
+    "lastName": "Schmidt"
+}, {
+    "id": 100,
+    "firstName": "Donald",
+    "lastName": "Scott"
+}];
+
+function setDefault (options, defaults) {
+    options = options || {};
+
+    R.forEach(function (key) {
+        if (options[key] === null || options[key] === undefined) {
+            options[key] = defaults[key];
+        }
+    }, R.keys(defaults));
+    return options;
+}
+
+function _getUsers (options) {
+    options = setDefault(options, {
+        start: 0,
+        length: 10
+    });
+
+    return R.slice(options.start, options.start + options.length)(users);
+}
 
 export default {
-    getCollection () {
+    getCollection (options) {
         var promise = new Promise(function (resolve, reject) {
             setTimeout(function () {
+                var users = _getUsers(options);
                 resolve({
-                    data: [
-                        { firstName: 'Ion', lastName: 'Gheo' },
-                        { firstName: 'Vasile', lastName: 'Gheorghe' },
-                        { firstName: 'Daniela', lastName: 'Costin' },
-                        { firstName: 'Maximilian', lastName: new Date().toString() }
-                    ],
-                    totalData: 4,
-                    totalDisplayData: 4
+                    data: users,
+                    totalData: 100,
+                    totalDisplayData: 100
                 });
             }, 0);
         });

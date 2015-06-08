@@ -27,7 +27,12 @@ export default React.createClass({
         return (
             <div>
                 <button onClick={this.onReloadClick}>Reload</button>
-                <UsersTable users={this.state.data} totalDisplayData={this.state.totalDisplayData} />
+                <UsersTable
+                    users={this.state.data}
+                    totalDisplayData={this.state.totalDisplayData}
+                    refetchData={function (options) {
+                        this._fireReloadUsers(options)
+                    }.bind(this)} />
             </div>
         );
     },
@@ -36,7 +41,7 @@ export default React.createClass({
         this._fireReloadUsers();
     },
 
-    _fireReloadUsers () {
-        this.getFlux().actions.loadUsers();
+    _fireReloadUsers (options) {
+        this.getFlux().actions.loadUsers(options);
     }
 })
