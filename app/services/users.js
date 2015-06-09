@@ -35,7 +35,7 @@ export default {
                     totalData: 1000,
                     totalDisplayData: 1000
                 });
-            }, 0);
+            }, 500);
         });
 
         return promise;

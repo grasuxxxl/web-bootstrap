@@ -31,6 +31,12 @@ export default Fluxxor.createStore({
     fetchingCollection: false,
 
     _loadUsers (options) {
+        options.start = options.start || 0;
+        options.length = options.length || 100;
+
+        options.start -= 20;
+        options.length += 20;
+        if (options.start < 0) options.start = 0;
         this._options.push(options);
         if (this.fetchingCollection) return;
 
@@ -58,7 +64,7 @@ export default Fluxxor.createStore({
                     this._options.shift();
                     this.fetchingCollection = false;
                     if (this._options.length > 0) {
-                        var options = R.head(this._options);
+                        var options = R.last(this._options);
                         this._options.length = 0;
                         recursive.call(this, options);
                     }
