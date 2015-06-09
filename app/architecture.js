@@ -14,7 +14,7 @@ export default {
         var flux = new Fluxxor.Flux(stores, UserActions);
 
         flux.on('dispatch', function (type, payload) {
-            console.log("[Dispatch]", type, payload);
+            // console.log("[Dispatch]", type, payload);
         });
 
         return flux;

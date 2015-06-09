@@ -26,22 +26,17 @@ export default React.createClass({
     render () {
         return (
             <div>
-                <button onClick={this.onReloadClick}>Reload</button>
                 <UsersTable
                     users={this.state.data}
                     totalDisplayData={this.state.totalDisplayData}
                     noDataAtIndex={function (index) {
-                        this._fireReloadUsers({ start: index })
+                        this._fireLoadUsers({ start: index })
                     }.bind(this)} />
             </div>
         );
     },
 
-    onReloadClick () {
-        this._fireReloadUsers();
-    },
-
-    _fireReloadUsers (options) {
+    _fireLoadUsers (options) {
         this.getFlux().actions.loadUsers(options);
     }
 })

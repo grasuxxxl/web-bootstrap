@@ -10,8 +10,6 @@ export default class UsersTable extends Component {
     _rowGetter (index) {
         var result = this.props.users[index];
         if (result) return result;
-
-        console.log('Failed at index ', index);
         this.noDataAtIndex(index);
 
         return {
@@ -45,7 +43,8 @@ export default class UsersTable extends Component {
 UsersTable.propTypes = {
     users: PropTypes.array,
     totalData: PropTypes.number,
-    totalDisplayData: PropTypes.number
+    totalDisplayData: PropTypes.number,
+    noDataAtIndex: R.identity
 };
 
 UsersTable.defaultProps = {

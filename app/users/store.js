@@ -26,27 +26,57 @@ export default Fluxxor.createStore({
         return _usersResult;
     },
 
+    _options: [],
+
     fetchingCollection: false,
 
     _loadUsers (options) {
+
+        var lastOptions = R.last(this._options);
+        if (this.fetchingCollection && lastOptions) {
+            if (options.start - lastOptions.start !== 100) {
+                return;
+            }
+            else {
+                this._options.push(options);
+            }
+        }
+        else {
+            if (options.start !== undefined && options.start % 100 !== 0) {
+                options.start = _usersResult.data.length;
+            }
+            else {
+                this._options.push(options);
+            }
+
+        }
+
         if (this.fetchingCollection) return;
 
         this.fetchingCollection = true;
-        Users.getCollection(options)
-            .then(function (usersResult) {
-                var currentData = _usersResult.data;
-                _usersResult = usersResult;
+        (function recursive(options) {
+            console.log(options);
+            Users.getCollection(options)
+                .then(function (usersResult) {
+                    var currentData = _usersResult.data;
+                    _usersResult = usersResult;
 
-                var dataToAdd = R.filter(function (user) {
-                   return !R.find(R.eqDeep(user), _usersResult.data);
-                }, currentData);
+                    var dataToAdd = R.filter(function (user) {
+                        return !R.find(R.eqDeep(user), _usersResult.data);
+                    }, currentData);
 
-                _usersResult.data = R.concat(dataToAdd, _usersResult.data);
+                    _usersResult.data = R.concat(dataToAdd, _usersResult.data);
 
-                this.emit('change');
-            }.bind(this))
-            .done(function () {
-                this.fetchingCollection = false;
-            }.bind(this));
+                    var diff = function (a, b) {return a.id - b.id};
+                    _usersResult.data = R.sort(diff, _usersResult.data);
+
+                    this.emit('change');
+                }.bind(this))
+                .done(function () {
+                    this._options.shift();
+                    this.fetchingCollection = false;
+                    if (this._options.length > 0) recursive.call(this, R.head(this._options));
+                }.bind(this));
+        }.bind(this))(options);
     }
 });
