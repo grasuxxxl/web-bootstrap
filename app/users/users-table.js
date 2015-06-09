@@ -8,7 +8,7 @@ import R from 'ramda';
 
 export default class UsersTable extends Component {
     _rowGetter (index) {
-        var result = this.props.users[index];
+        var result = R.find(R.propEq('id', index + 1), this.props.users);
         if (result) return result;
         this.noDataAtIndex(index);
 

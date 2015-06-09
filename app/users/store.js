@@ -31,30 +31,12 @@ export default Fluxxor.createStore({
     fetchingCollection: false,
 
     _loadUsers (options) {
-
-        var lastOptions = R.last(this._options);
-        if (this.fetchingCollection && lastOptions) {
-            if (options.start - lastOptions.start !== 100) {
-                return;
-            }
-            else {
-                this._options.push(options);
-            }
-        }
-        else {
-            if (options.start !== undefined && options.start % 100 !== 0) {
-                options.start = _usersResult.data.length;
-            }
-            else {
-                this._options.push(options);
-            }
-
-        }
-
+        this._options.push(options);
         if (this.fetchingCollection) return;
 
-        this.fetchingCollection = true;
+
         (function recursive(options) {
+            this.fetchingCollection = true;
             console.log(options);
             Users.getCollection(options)
                 .then(function (usersResult) {
@@ -75,7 +57,11 @@ export default Fluxxor.createStore({
                 .done(function () {
                     this._options.shift();
                     this.fetchingCollection = false;
-                    if (this._options.length > 0) recursive.call(this, R.head(this._options));
+                    if (this._options.length > 0) {
+                        var options = R.head(this._options);
+                        this._options.length = 0;
+                        recursive.call(this, options);
+                    }
                 }.bind(this));
         }.bind(this))(options);
     }
