@@ -4,20 +4,24 @@
 import Router from './router.js';
 import Architecture from './architecture.js';
 
-// Load initial data
-(function (window) {
-    window.cache = {
+export default {
+    init: function (document) {
+        var flux = Architecture.init();
 
+        Router.init({
+            rootNode: document.getElementById('app'),
+            flux: flux
+        });
     }
-}(window));
+}
 
-// Load I18n resources
-
-// Start Fluxxor
-var flux = Architecture.init();
-
-// Start router
-Router.init({
-    rootNode: document.getElementById('app'),
-    flux: flux
-});
+//// Load I18n resources
+//
+//// Start Fluxxor
+//var flux = Architecture.init();
+//
+//// Start router
+//Router.init({
+//    rootNode: document.getElementById('app'),
+//    flux: flux
+//});

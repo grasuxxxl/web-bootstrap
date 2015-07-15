@@ -7,6 +7,7 @@ import UserActions from './users/actions.js';
 
 export default {
     init: function () {
+        console.log('architecture.init');
         var stores = {
             UsersStore: new UsersStore()
         };
