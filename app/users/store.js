@@ -43,7 +43,6 @@ export default Fluxxor.createStore({
 
         (function recursive(options) {
             this.fetchingCollection = true;
-            console.log(options);
             Users.getCollection(options)
                 .then(function (usersResult) {
                     var currentData = _usersResult.data;

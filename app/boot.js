@@ -3,21 +3,18 @@
  */
 import Router from './router.js';
 import Architecture from './architecture.js';
+import R from 'ramda';
 
-// Load initial data
-(function (window) {
-    window.cache = {
+export default {
+    init: R.once(() => {
+        // Start Fluxxor
+        var flux = Architecture.init();
 
-    }
-}(window));
+        // Start router
+        Router.init({
+            rootNode: document.getElementById('app'),
+            flux: flux
+        });
+    })
+}
 
-// Load I18n resources
-
-// Start Fluxxor
-var flux = Architecture.init();
-
-// Start router
-Router.init({
-    rootNode: document.getElementById('app'),
-    flux: flux
-});
