@@ -5,8 +5,9 @@ var test = require('./tape.js');
 var sinon = require('sinon');
 var Boot = require('./boot.js');
 var Router = require('./router.js');
+var Architecture =require('./architecture.js');
 
-test('should initiate the router', function (t) {
+test('boot', function (t) {
     sinon.stub(Router, 'init');
 
     Boot.init();
@@ -16,8 +17,12 @@ test('should initiate the router', function (t) {
     t.end();
 });
 
-test('test', function (t) {
+test('boot', function (t) {
+    sinon.stub(Architecture, 'init');
 
-    t.equal(1,1);
+    Boot.init();
+
+    t.equal(Architecture.init.called, true, 'Architecture.init to have been called');
+    Architecture.init.reset();
     t.end();
 });

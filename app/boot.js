@@ -6,7 +6,7 @@ import Architecture from './architecture.js';
 import R from 'ramda';
 
 export default {
-    init: R.once(() => {
+    init () {
         // Start Fluxxor
         var flux = Architecture.init();
 
@@ -15,6 +15,6 @@ export default {
             rootNode: document.getElementById('app'),
             flux: flux
         });
-    })
+    }
 }
 
