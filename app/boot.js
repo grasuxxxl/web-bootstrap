@@ -7,14 +7,13 @@ import R from 'ramda';
 
 export default {
     init () {
-        // Start Fluxxor
-        var flux = Architecture.init();
-
         // Start router
         Router.init({
-            rootNode: document.getElementById('app'),
-            flux: flux
+            rootNode: document.getElementById('app')
         });
     }
 }
 
+Router.init({
+    rootNode: document.getElementById('app')
+});

@@ -26,6 +26,16 @@ function _getUsers (options) {
 }
 
 export default {
+    getCollectionSync: function () {
+        var options = {start: 0, length: 100};
+        var users = _getUsers(options);
+        return {
+            data: users,
+            totalData: 1000,
+            totalDisplayData: 1000
+        }
+    },
+
     getCollection (options) {
         var promise = new Promise(function (resolve, reject) {
             setTimeout(function () {

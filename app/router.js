@@ -8,10 +8,10 @@ import routes from './routes.js';
 
 export default {
     init: function (options) {
-        var { rootNode, flux } = options;
+        var { rootNode } = options;
 
         Router.run(routes, function (Handler) {
-            React.render(<Handler flux={flux} />, rootNode);
+            React.render(<Handler />, rootNode);
         });
     }
 };

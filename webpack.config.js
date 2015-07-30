@@ -10,11 +10,18 @@ var config = {
         this.module.noParse.push(new RegExp(path));
     },
 	context: __dirname,
-	entry: ['./app/boot.js'],
+	entry: [
+
+        'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
+        'webpack/hot/only-dev-server',
+        './app/boot.js'
+    ],
     resolve: { alias: {} },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-        new ExtractTextPlugin('style.css')
+        new ExtractTextPlugin('style.css'),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
     ],
 	output: {
      publicPath: '/',
@@ -25,7 +32,7 @@ var config = {
         noParse: [],
         loaders: [
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module') },
-            { test: /\.js$/, loader: 'babel-loader' }
+            { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/ }
         ]
     }
 };

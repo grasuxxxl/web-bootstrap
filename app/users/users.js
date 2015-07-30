@@ -2,41 +2,32 @@
  * Created by Maximilian on 5/30/2015.
  */
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { Connector } from 'redux/react';
 import UsersTable from './users-table.js'
-import Fluxxor from 'fluxxor';
+import UsersActions from './actions.js';
 
-
-var FluxMixin = Fluxxor.FluxMixin(React),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+function select(state) {
+    return {users: state.users};
+}
 
 export default React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin('UsersStore')],
-
-    getInitialState () {
-        return {
-            // users: []
-        };
+    setState: function () {
+        debugger;
     },
-
-    getStateFromFlux () {
-        var flux = this.getFlux();
-        return flux.store('UsersStore').getState();
-    },
-
     render () {
-        return (
-            <div>
-                <UsersTable
-                    users={this.state.data}
-                    totalDisplayData={this.state.totalDisplayData}
-                    noDataAtIndex={function (index) {
-                        this._fireLoadUsers({ start: index })
-                    }.bind(this)} />
-            </div>
-        );
-    },
 
-    _fireLoadUsers (options) {
-        this.getFlux().actions.loadUsers(options);
+        return (
+            <Connector select={select}>
+                {({users, dispatch}) =>
+                    <UsersTable
+                        users={users.data || []}
+                        totalDisplayData={1000}
+                        noDataAtIndex={function (index) {
+                            setTimeout(() => dispatch(UsersActions.load()), 0);
+                        }.bind(this)} />
+                }
+            </Connector>
+        );
     }
 })

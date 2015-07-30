@@ -6,10 +6,12 @@ import { Route, DefaultRoute } from 'react-router';
 
 import Main from './main.js';
 import Users from './users/users.js';
+import CounterApp from './misc/counter_app.js';
 
 var routes = (
     <Route name="app" path="/" handler={Main}>
         <DefaultRoute handler={Users} />
+        <Route path="counter" handler={CounterApp} />
     </Route>
 );
 export default routes;
