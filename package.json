@@ -26,6 +26,7 @@
     "fluxxor": "^1.5.4",
     "ramda": "^0.14.0",
     "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "redux": "^0.12.0"
   }
 }
