@@ -13,7 +13,3 @@ export default {
         });
     }
 }
-
-Router.init({
-    rootNode: document.getElementById('app')
-});

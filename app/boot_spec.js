@@ -16,13 +16,3 @@ test('boot', function (t) {
     Router.init.reset();
     t.end();
 });
-
-test('boot', function (t) {
-    sinon.stub(Architecture, 'init');
-
-    Boot.init();
-
-    t.equal(Architecture.init.called, true, 'Architecture.init to have been called');
-    Architecture.init.reset();
-    t.end();
-});

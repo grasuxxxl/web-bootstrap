@@ -14,7 +14,7 @@ var config = {
 
         'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
         'webpack/hot/only-dev-server',
-        './app/boot.js'
+        './app/entry.js'
     ],
     resolve: { alias: {} },
     plugins: [

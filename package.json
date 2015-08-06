@@ -1,7 +1,7 @@
 {
   "main": "./app/js",
   "scripts": {
-
+    "test": "babel-node ./app/all_specs.js",
     "dev": "node server.js",
     "deploy": "SET NODE_ENV=production webpack -p"
   },
