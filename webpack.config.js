@@ -34,7 +34,8 @@ var config = {
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module') },
             { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/ }
         ]
-    }
+    },
+    devtool: 'eval'
 };
 
 // config.addVendor('react', node_dir + '/react/dist/react.min.js');

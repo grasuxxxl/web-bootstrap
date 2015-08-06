@@ -36,7 +36,14 @@ export default class UsersTable extends Component {
     }
 
     noDataAtIndex (index) {
-        this.props.noDataAtIndex(index);
+
+        var min = (min, term) => term < 0 ? 0 : term;
+        var subtract = (numA, numB) => numA - numB;
+
+        this.props.noDataAtIndex({
+            start: min(0, subtract(index, 50)),
+            length: 150
+        });
     }
 }
 

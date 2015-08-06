@@ -23,8 +23,8 @@ export default React.createClass({
                     <UsersTable
                         users={users.data || []}
                         totalDisplayData={1000}
-                        noDataAtIndex={function (index) {
-                            setTimeout(() => dispatch(UsersActions.load()), 0);
+                        noDataAtIndex={function (options) {
+                            setTimeout(() => dispatch(UsersActions.load(options)), 0);
                         }.bind(this)} />
                 }
             </Connector>

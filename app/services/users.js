@@ -4,6 +4,7 @@
 import Promise from 'bluebird';
 import R from 'ramda';
 import users from './users_mock.js';
+import {single} from '../utils/async.js'
 
 function setDefault (options, defaults) {
     options = options || {};
@@ -25,19 +26,11 @@ function _getUsers (options) {
     return R.slice(options.start, options.start + options.length)(users);
 }
 
-export default {
-    getCollectionSync: function () {
-        var options = {start: 0, length: 100};
-        var users = _getUsers(options);
-        return {
-            data: users,
-            totalData: 1000,
-            totalDisplayData: 1000
-        }
-    },
 
-    getCollection (options) {
-        var promise = new Promise(function (resolve, reject) {
+
+export default {
+    getCollection: single(function (options) {
+        return new Promise(function (resolve, reject) {
             setTimeout(function () {
                 var users = _getUsers(options);
                 resolve({
@@ -45,9 +38,7 @@ export default {
                     totalData: 1000,
                     totalDisplayData: 1000
                 });
-            }, 500);
+            }, 0);
         });
-
-        return promise;
-    }
+    })
 };

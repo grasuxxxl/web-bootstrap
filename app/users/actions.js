@@ -1,14 +1,23 @@
 /**
  * Created by maximilian on 08.06.2015.
  */
-import { LOAD_USERS } from './action_types.js';
+import { LOADED_USERS } from './action_types.js';
+import Users from '../services/users.js';
 
-export default {
-    load() {
-        return { type: LOAD_USERS }
+var actions = {
+    load(options) {
+        return dispatch => {
+            Users.getCollection(options).
+                then(function (usersResult) {
+                    dispatch(actions.loaded(usersResult));
+                });
+        };
+
+    },
+
+    loaded(usersResult) {
+        return { type: LOADED_USERS, usersResult };
     }
-}
+};
 
-export function load() {
-    return { type: LOAD_USERS }
-}
+export default actions;

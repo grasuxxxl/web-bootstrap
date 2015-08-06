@@ -1,16 +1,34 @@
 /**
  * Created by maximilian on 07.06.2015.
  */
-import Fluxxor from 'fluxxor';
-import Users from '../services/users.js';
 import R from 'ramda';
 
-import { LOAD_USERS } from './action_types.js';
+import { LOADED_USERS } from './action_types.js';
 
-export default function test_naming(state = {}, action = null) {
+function mergeState(currentState, nextState) {
+
+    var currentData = currentState.data || [],
+        dataToAdd = R.filter(function (user) {
+            return !R.find(R.eqDeep(user), nextState.data);
+        }, currentData);
+
+    var allData = R.concat(dataToAdd, nextState.data);
+
+    var diff = function (a, b) {return a.id - b.id};
+    var sortedData = R.sort(diff, allData);
+
+    return {
+        data: sortedData,
+        totalData: nextState.totalData,
+        totalDisplayData: nextState.totalDisplayData
+    };
+}
+
+export default function (state = {}, action = null) {
+
     switch (action.type) {
-        case LOAD_USERS:
-            return Users.getCollectionSync();
+        case LOADED_USERS:
+            return mergeState(state, action.usersResult);
         default:
             return state;
     }
