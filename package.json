@@ -9,6 +9,7 @@
     "babel": "^5.8.21",
     "babel-core": "^5.2.17",
     "babel-loader": "^5.0.0",
+    "baconjs": "^0.7.70",
     "css-loader": "^0.14.3",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.2.8",
