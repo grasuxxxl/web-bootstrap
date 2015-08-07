@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.30",
+    "extract-text-webpack-plugin": "^0.8.2",
     "fixed-data-table": "^0.3.0",
     "fluxxor": "^1.5.4",
     "ramda": "^0.14.0",
