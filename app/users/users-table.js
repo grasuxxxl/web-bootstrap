@@ -29,7 +29,7 @@ export default class UsersTable extends Component {
                 rowGetter={this._rowGetter.bind(this)}
                 headerHeight={50}>
                 <Column label="Id" width={50} dataKey={'id'} />
-                <Column label="First Name" width={100} dataKey={'firstName'} />
+                <Column label="First swhkdsjfds" width={100} dataKey={'firstName'} />
                 <Column label="Last Name" width={100} dataKey={'lastName'} flexGrow={1} />
             </Table>
         );
