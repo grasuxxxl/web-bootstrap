@@ -3,31 +3,28 @@
  */
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { Connector } from 'redux/react';
+import { connect } from 'react-redux';
 import UsersTable from './users-table.js'
 import UsersActions from './actions.js';
 
 function select(state) {
-    return {users: state.users};
+    return {users: {data: state.data}};
 }
 
-export default React.createClass({
-    setState: function () {
-        debugger;
-    },
+var Users = React.createClass({
     render () {
+        var {dispatch, users} = this.props;
+        var usersData = users && (users.data || []);
 
         return (
-            <Connector select={select}>
-                {({users, dispatch}) =>
-                    <UsersTable
-                        users={users.data || []}
-                        totalDisplayData={1000}
-                        noDataAtIndex={function (options) {
-                            setTimeout(() => dispatch(UsersActions.load(options)), 0);
-                        }.bind(this)} />
-                }
-            </Connector>
+            <UsersTable
+                users={usersData || []}
+                totalDisplayData={1000}
+                noDataAtIndex={function (options) {
+                    setTimeout(() => dispatch(UsersActions.load(options)), 0);
+                }.bind(this)} />
         );
     }
-})
+});
+
+export default connect(select)(Users);

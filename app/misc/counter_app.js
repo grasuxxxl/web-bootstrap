@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { Connector } from 'redux/react';
+import { Connector } from 'react-redux';
 import Counter from './counter.js';
 import * as CounterActions from './actions.js';
 
