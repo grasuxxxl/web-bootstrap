@@ -1,0 +1,10 @@
+.dataList {
+    width: 90%;
+    height: 200px;
+    overflow: hidden;
+    border: red 1px solid;
+}
+
+.innerList {
+    transform: translate(0, 0);
+}

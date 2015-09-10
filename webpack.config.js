@@ -20,7 +20,7 @@ var config = {
     resolve: { alias: {} },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-        new ExtractTextPlugin('style.css'),
+        new ExtractTextPlugin('components.css'),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],
