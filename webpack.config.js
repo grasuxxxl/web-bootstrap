@@ -1,8 +1,10 @@
-// For conveniance we create variable that holds the directory to bower_components
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpack             = require('webpack'),
+    path                = require('path'),
+    ExtractTextPlugin   = require('extract-text-webpack-plugin');
+
 // var node_dir = __dirname + '/node_modules';
+
+
 
 var config = {
     addVendor: function (name, path) {
@@ -11,7 +13,6 @@ var config = {
     },
 	context: __dirname,
 	entry: [
-
         'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
         'webpack/hot/only-dev-server',
         './app/entry.js'
