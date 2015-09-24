@@ -10,6 +10,11 @@ const move = 'touchmove';
 const start = 'touchstart';
 const end = 'touchend';
 
+var rafRunning = false,
+    highPerf = document.getElementById('highPerf'),
+    rand = () => Math.floor(Math.random() * (40 - 20)) + 20,
+    customDiv = document.createElement('div');
+
 const getCoordinatesFromEvent = function (e) {
     return {
         x: e.targetTouches[0].screenX,
@@ -17,7 +22,8 @@ const getCoordinatesFromEvent = function (e) {
     };
 };
 
-const mouseMoveHandler = R.curry(function (initialY, innerList, initialCoordinates, e) {
+
+var scrollList = function (initialY, innerList, initialCoordinates, e) {
     var currentCoordinates = getCoordinatesFromEvent(e);
 
     var differenceY = initialCoordinates.y - currentCoordinates.y;
@@ -27,11 +33,26 @@ const mouseMoveHandler = R.curry(function (initialY, innerList, initialCoordinat
     var newY = (initialY + negativeY);
     if (newY > 0) newY = 0;
 
-
     innerList.style.transform = 'translateY(' + newY + 'px)';
 
-
     // Do I recycle the DOM Node?
+
+    // Create a div, of x height, measure it, log height to console
+
+
+    customDiv.style.height = rand() + 'px';
+
+
+    highPerf.contentDocument.body.appendChild(customDiv);
+    console.log(customDiv.offsetHeight);
+    highPerf.contentDocument.body.removeChild(customDiv);
+    rafRunning = false;
+};
+
+const mouseMoveHandler = R.curry(function (initialY, innerList, initialCoordinates, e) {
+    if (rafRunning) return;
+    rafRunning = true;
+    requestAnimationFrame(scrollList.bind(null, initialY, innerList, initialCoordinates, e));
 });
 
 const mouseDownHandler = R.curry(function (list, innerList, e) {
@@ -60,7 +81,7 @@ export default React.createClass({
         var range = R.range(1, 10),
             rand = () => Math.floor(Math.random() * (40 - 20)) + 20;
 
-        return R.map((rangeItem, index) => <div key={index} style={{height: rand() + 'px'}}>{rangeItem}</div>, range);
+        return R.map((rangeItem, index) => <div key={rangeItem} style={{height: rand() + 'px', backgroundColor: 'green'}}>{rangeItem}</div>, range);
     },
 
     render () {

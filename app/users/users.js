@@ -31,7 +31,6 @@ var Users = React.createClass({
         return (
             <div>
                 <SearchBar />
-                <DataList data={usersData} />
                 <UsersTable
                     users={usersData || []}
                     totalDisplayData={1000}

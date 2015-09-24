@@ -8,3 +8,8 @@
 .innerList {
     transform: translate(0, 0);
 }
+
+:global(#highPerf) {
+    position: absolute;
+    visibility: hidden;
+}
