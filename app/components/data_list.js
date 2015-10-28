@@ -4,6 +4,7 @@
 import React from 'react';
 import style from './data_list.css';
 import R from 'ramda';
+import ring from '../structs/ring.js';
 
 const click = 'tap';
 const move = 'touchmove';
@@ -12,7 +13,7 @@ const end = 'touchend';
 
 var rafRunning = false,
     highPerf = document.getElementById('highPerf'),
-    rand = () => Math.floor(Math.random() * (40 - 20)) + 20,
+    rand = () => Math.floor(Math.random() * (80 - 40)) + 40,
     customDiv = document.createElement('div');
 
 const getCoordinatesFromEvent = function (e) {
@@ -22,7 +23,17 @@ const getCoordinatesFromEvent = function (e) {
     };
 };
 
+var nextRingItems = undefined;
+var getRecyclingContesters = function (list) {
+    if (!nextRingItems) {
+        nextRingItems = ring({sequence: list});
+    }
 
+    return nextRingItems(2);
+};
+
+var totalHeight = 0,
+    visibleHeight = 0;
 var scrollList = function (initialY, innerList, initialCoordinates, e) {
     var currentCoordinates = getCoordinatesFromEvent(e);
 
@@ -33,19 +44,29 @@ var scrollList = function (initialY, innerList, initialCoordinates, e) {
     var newY = (initialY + negativeY);
     if (newY > 0) newY = 0;
 
-    innerList.style.transform = 'translateY(' + newY + 'px)';
 
-    // Do I recycle the DOM Node?
-
-    // Create a div, of x height, measure it, log height to console
+    innerList.style.transform = 'translateY(' + (newY) + 'px)';
 
 
-    customDiv.style.height = rand() + 'px';
+    if (totalHeight - visibleHeight < (newY * (-1) + 30)) {
+        var recyclingContesters = getRecyclingContesters(innerList.children);
 
+        // write
+        recyclingContesters.forEach(function (recyclingNode) {
+            recyclingNode.style.height = rand() + 'px';
+        });
 
-    highPerf.contentDocument.body.appendChild(customDiv);
-    console.log(customDiv.offsetHeight);
-    highPerf.contentDocument.body.removeChild(customDiv);
+        // read
+        var heights = R.map(R.prop('offsetHeight'), recyclingContesters);
+
+        // translate
+        heights.forEach(function (newHeight, index) {
+            var recyclingContester = recyclingContesters[index];
+            recyclingContester.style.transform = 'translateY(' + (totalHeight) + 'px)';
+            totalHeight += newHeight;
+        });
+    }
+
     rafRunning = false;
 };
 
@@ -64,24 +85,25 @@ const mouseDownHandler = R.curry(function (list, innerList, e) {
         document.body.removeEventListener(move, mouseMoveHandlerWithArgs);
     });
 
-
-
     document.body.addEventListener(move, mouseMoveHandlerWithArgs);
 });
+
 
 export default React.createClass({
     componentDidMount () {
         var list = React.findDOMNode(this.refs.list),
             innerList = React.findDOMNode(this.refs.innerList);
 
+        totalHeight = R.reduce((memo, domElement) =>  memo + domElement.offsetHeight, 0, innerList.children);
+        visibleHeight = list.offsetHeight;
         list.addEventListener(start, mouseDownHandler(list, innerList));
     },
 
     getListItems () {
         var range = R.range(1, 10),
-            rand = () => Math.floor(Math.random() * (40 - 20)) + 20;
+            rand = () => Math.floor(Math.random() * (60 - 40)) + 40;
 
-        return R.map((rangeItem, index) => <div key={rangeItem} style={{height: rand() + 'px', backgroundColor: 'green'}}>{rangeItem}</div>, range);
+        return R.map((rangeItem, index) => <div key={rangeItem} className={style.dataList_item} style={{height: rand() + 'px'}}>{rangeItem}</div>, range);
     },
 
     render () {

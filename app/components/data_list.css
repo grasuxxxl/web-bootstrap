@@ -1,12 +1,22 @@
 .dataList {
+    margin-top: 400px;
     width: 90%;
     height: 200px;
-    overflow: hidden;
+    overflow_out: hidden;
     border: red 1px solid;
 }
 
 .innerList {
     transform: translate(0, 0);
+    position: relative;
+}
+
+.dataList_item {
+    transform: translate(0, 0);
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    width: 100%;
+    position: absolute;
 }
 
 :global(#highPerf) {

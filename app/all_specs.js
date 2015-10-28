@@ -1,6 +1,13 @@
 /**
  * Created by maximilian on 22.07.2015.
  */
+
+var originalRequire = require;
+global.require = function (path) {
+    if (path.endsWith('.css')) return {};
+    return originalRequire(path);
+};
+
 var path = require("path"),
     fs = require("fs"),
     Bacon = require('baconjs');
