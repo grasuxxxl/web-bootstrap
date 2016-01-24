@@ -11,7 +11,7 @@ export default React.createClass({
       var {children} = this.props;
         return (
             <Provider store={Architecture.init()}>
-                {() => children }
+                {children}
             </Provider>
         );
     }

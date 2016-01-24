@@ -32,8 +32,10 @@ var config = {
     module: {
         noParse: [],
         loaders: [
-            { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module') },
-            { test: /\.js$/, loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/ }
+            { test: /\.css$/,
+              loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module') },
+            { test: /\.js$/,
+              loaders: ['react-hot', 'babel-loader'], exclude: /node_modules/ }
         ]
     },
     devtool: 'eval'

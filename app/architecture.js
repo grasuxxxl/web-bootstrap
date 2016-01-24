@@ -2,9 +2,8 @@
  * Created by maximilian on 07.06.2015.
  */
 
-import { createStore, applyMiddleware } from 'redux';
-import counter from './misc/store.js';
-import users from './users/store.js';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import counter from './counter/reducers.js';
 
 const thunkMiddleware = store => next => action => {
     if (typeof action !== 'function') {
@@ -31,8 +30,13 @@ const createStoreWithMiddleware = applyMiddleware(
     thunkMiddleware
 )(createStore);
 
+var store;
 export default {
     init: function () {
-        return createStoreWithMiddleware(users);
+      if (store) return store;
+      store = createStoreWithMiddleware(combineReducers({
+        counter
+      }));
+      return store;
     }
 };

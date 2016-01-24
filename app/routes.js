@@ -6,7 +6,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import Main from './main.js';
 import Users from './users/users.js';
-import CounterApp from './misc/counter_app.js';
+import CounterApp from './counter/container.js';
 
 var routes = (
    <Route path="/" component={Main}>
