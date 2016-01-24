@@ -24,11 +24,10 @@
     "bluebird": "^2.9.30",
     "extract-text-webpack-plugin": "^0.8.2",
     "fixed-data-table": "^0.3.0",
-    "fluxxor": "^1.5.4",
     "ramda": "^0.14.0",
     "react": "^0.13.3",
     "react-redux": "^0.8.2",
-    "react-router": "^0.13.3",
+    "react-router": "2.0.0-rc5",
     "redux": "^1.0.0"
   }
 }

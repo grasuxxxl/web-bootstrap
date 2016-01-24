@@ -8,9 +8,10 @@ import Architecture from './architecture.js';
 
 export default React.createClass({
     render () {
+      var {children} = this.props;
         return (
             <Provider store={Architecture.init()}>
-                {() => <RouteHandler /> }
+                {() => children }
             </Provider>
         );
     }
