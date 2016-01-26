@@ -1,9 +1,10 @@
 /**
  * Created by maximilian on 07.06.2015.
  */
-
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { install, combineReducers } from 'redux-loop';
 import counter from './counter/reducers.js';
+import loading from './loading/reducers.js';
 
 const thunkMiddleware = store => next => action => {
     if (typeof action !== 'function') {
@@ -26,8 +27,9 @@ const thunkMiddleware = store => next => action => {
     return result;
 };
 
-const createStoreWithMiddleware = applyMiddleware(
-    thunkMiddleware
+const createStoreWithMiddleware =compose(
+  applyMiddleware(thunkMiddleware),
+  install()
 )(createStore);
 
 var store;
@@ -35,7 +37,8 @@ export default {
     init: function () {
       if (store) return store;
       store = createStoreWithMiddleware(combineReducers({
-        counter
+        counter,
+        loading
       }));
       return store;
     }
