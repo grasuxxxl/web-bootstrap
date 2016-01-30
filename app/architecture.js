@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { install, combineReducers } from 'redux-loop';
 import counter from './counter/reducers.js';
 import loading from './loading/reducers.js';
+import todos from './todo/reducers.js';
 
 const thunkMiddleware = store => next => action => {
     if (typeof action !== 'function') {
@@ -38,7 +39,8 @@ export default {
       if (store) return store;
       store = createStoreWithMiddleware(combineReducers({
         counter,
-        loading
+        loading,
+        todos
       }));
       return store;
     }

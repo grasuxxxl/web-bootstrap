@@ -6,10 +6,12 @@ import { Route, IndexRoute } from 'react-router';
 
 import Main from './main.js';
 import CounterApp from './counter/container.js';
+import TodoContainer from './todo/container.js';
 
 var routes = (
    <Route path="/" component={Main}>
     <Route path="counter" component={CounterApp} />
+    <Route path="todo" component={TodoContainer} />
    </Route>
 );
 export default routes;
