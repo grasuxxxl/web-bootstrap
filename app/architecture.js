@@ -6,6 +6,7 @@ import { install, combineReducers } from 'redux-loop';
 import counter from './counter/reducers.js';
 import loading from './loading/reducers.js';
 import todos from './todo/reducers.js';
+import sideEffects from './side_effects/reducers.js';
 
 const thunkMiddleware = store => next => action => {
     if (typeof action !== 'function') {
@@ -40,7 +41,8 @@ export default {
       store = createStoreWithMiddleware(combineReducers({
         counter,
         loading,
-        todos
+        todos,
+        sideEffects
       }));
       return store;
     }

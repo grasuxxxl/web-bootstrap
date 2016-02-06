@@ -1,9 +1,10 @@
 import { Effects, loop } from 'redux-loop';
+import actions from './actions.js';
 
 export function fetchDetails (id) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () { resolve({ id }); }, 500);
-  });
+  }).then(id => actions.loadingSuccess(id));
 };
 
 const loadingStart = (state, payload) => {
@@ -13,7 +14,7 @@ const loadingStart = (state, payload) => {
   );
 };
 
-const loadingSuccess = (state, payload) => {
+const loadingSuccessReducer = (state, payload) => {
   return {
     ...state,
     loading: false,
@@ -29,10 +30,10 @@ const loadingFailure = (state, payload) => {
   };
 };
 
-export default function (state, action) {
+export default function (state = { loading: false, details: {} }, action) {
   switch (action.type) {
     case 'LOADING_START': return loadingStart(state, action.payload);
-    case 'LOADING_SUCCESS': return loadingSuccess(state, action.payload);
+    case 'LOADING_SUCCESS': return loadingSuccessReducer(state, action.payload);
     case 'LOADING_FAILURE': return loadingStart(state, action.payload);
     default: return state;
   }
